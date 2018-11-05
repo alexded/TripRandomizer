@@ -7,35 +7,11 @@ document.getElementById("app").innerHTML = `
 </div>
 `;
 
-
-
 const LONGITUDE_KM_45 = 79;
 const LONGITUDE_KM_0 = 111;
 const LATITUDE_KM = 111;
 
-function getDistance(startPoint, endPoint) {
-  const PI = Math.PI;
-  const PI180 = PI / 180;
-  var startPointLongitudePI = startPoint.getLongitude() * PI180;
-  var endPointLongitudePI = endPoint.getLongitude() * PI180;
-  var startPointLatitudePI = startPoint.getLatitude() * PI180;
-  var endPointLatitudePI = endPoint.getLatitude() * PI180;
-  var pointsDistance =
-    2 *
-    6371 *
-    Math.asin(
-      Math.sqrt(
-        Math.pow(Math.sin((startPointLatitudePI - endPointLatitudePI) / 2), 2) +
-          Math.cos(startPointLatitudePI) *
-            Math.cos(endPointLatitudePI) *
-            Math.pow(
-              Math.sin((startPointLongitudePI - endPointLongitudePI) / 2),
-              2
-            )
-      )
-    ).toFixed(6);
-  return pointsDistance;
-}
+
 
 var getNextTripPoint = function(
   startPoint,
@@ -80,6 +56,7 @@ var getNextTripPoint = function(
       x_nextPoint_alg2
     );
   } else {
+	  
     // Option 1
     var p = (r0 + r1 + d) / 2;
     var h1 = (2 / d) * Math.sqrt(p * (p - r0) * (p - r1) * (p - d));
@@ -149,8 +126,8 @@ var getNextTripPoint = function(
   }
 
   console.log(nextPoint_alg2.toString());
-  var distance1 = getDistance(startPoint, nextPoint_alg2);
-  var distance2 = getDistance(endPoint, nextPoint_alg2);
+  var distance1 = Utils.getDistance(startPoint, nextPoint_alg2);
+  var distance2 = Utils.getDistance(endPoint, nextPoint_alg2);
   console.log(
     toFixed(distance1) +
       " + " +
@@ -220,8 +197,8 @@ var startPoint = new Point("Start point", 48.274375, 25.936225);
 console.log(startPoint.toString());
 var endPoint = new Point("End point", 48.530186, 25.051741);
 console.log(endPoint.toString());
-var distance = getDistance(startPoint, endPoint);
-console.log("Distance = ", getDistance(startPoint, endPoint));
+var distance = Utils.getDistance(startPoint, endPoint);
+console.log( "Distance = ", distance );
 var betweenPointsNumber = 7;
 var maxSpeed = 40;
 var points = [startPoint];

@@ -20,7 +20,32 @@ var Utils = function() {
 	  );
 	};
 	
+	this._getDistance = function( startPoint, endPoint ) {
+		  const PI = Math.PI;
+		  const PI180 = PI / 180;
+		  var startPointLongitudePI = startPoint.getLongitude() * PI180;
+		  var endPointLongitudePI = endPoint.getLongitude() * PI180;
+		  var startPointLatitudePI = startPoint.getLatitude() * PI180;
+		  var endPointLatitudePI = endPoint.getLatitude() * PI180;
+		  var pointsDistance =
+		    2 *
+		    6371 *
+		    Math.asin(
+		      Math.sqrt(
+		        Math.pow(Math.sin((startPointLatitudePI - endPointLatitudePI) / 2), 2) +
+		          Math.cos(startPointLatitudePI) *
+		            Math.cos(endPointLatitudePI) *
+		            Math.pow(
+		              Math.sin((startPointLongitudePI - endPointLongitudePI) / 2),
+		              2
+		            )
+		      )
+		    ).toFixed(6);
+		  return pointsDistance;
+		}
+	
 	return {
-		convertCoordinatesToKm: _convertCoordinatesToKm
+		convertCoordinatesToKm: _convertCoordinatesToKm,
+		getDistance: _getDistance
 	}
 }();
