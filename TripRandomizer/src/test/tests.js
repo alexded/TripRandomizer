@@ -64,8 +64,6 @@ Tests.Service.intersectionPoints.twoPoints = function() {
 	
 };
 
-Tests.Service.intersectionPoints.twoPoints();
-
 Tests.Service.intersectionPoints.onePoint = function() {
 	
 	var service = new Service();
@@ -129,4 +127,67 @@ Tests.Service.intersectionPoints.onePoint = function() {
 	
 };
 
+Tests.Service.intersectionPoints.nonePoints = function() {
+	
+    var service = new Service();
+	
+	var assertPoints = TestUtils.assertPoints;
+	
+	var startPoint;
+	var endPoint;
+	
+	startPoint = new Point("Start point", 0, 10 );
+	endPoint = new Point("End point", 0, 200);
+	test( startPoint, endPoint );
+	
+	startPoint = new Point("Start point", 10, 10 );
+	endPoint = new Point("End point", 200, 200);
+	test( startPoint, endPoint );
+	
+	startPoint = new Point("Start point", 10, 0 );
+	endPoint = new Point("End point", 200, 0);
+	test( startPoint, endPoint );
+	
+	startPoint = new Point("Start point", 10, -10 );
+	endPoint = new Point("End point", 200, -200);
+	test( startPoint, endPoint );
+	
+	startPoint = new Point("Start point", 0, -10 );
+	endPoint = new Point("End point", 0, -200);
+	test( startPoint, endPoint );
+	
+	startPoint = new Point("Start point", -10, -10 );
+	endPoint = new Point("End point", -200, -200);
+	test( startPoint, endPoint );
+	
+	startPoint = new Point("Start point", -10, 0 );
+	endPoint = new Point("End point", -200, 0);
+	test( startPoint, endPoint );
+	
+	startPoint = new Point("Start point", -10, 10 );
+	endPoint = new Point("End point", -200, 200);
+	test( startPoint, endPoint );
+	
+	function test( startPoint, endPoint ) {
+		
+		console.log(startPoint.toString());
+		console.log(endPoint.toString());
+		var betweenPointsNumber = 1;
+		var maxSpeed = 50;
+		var intersectionPoints = service.findIntersectionPoints( startPoint, endPoint, maxSpeed, betweenPointsNumber );
+		
+		var point31 = intersectionPoints.point1;
+		var point32 = intersectionPoints.point2;
+	    
+		if( point31 == null && point32 == null ) {
+			console.log( "OK" );
+		} else {
+			throw new Error( "Points assertion error: " + point31.getName() + ", " + point32.getName() + " :: " + " must be null" );
+		}
+		
+	}
+}
+
+Tests.Service.intersectionPoints.twoPoints();
 Tests.Service.intersectionPoints.onePoint();
+Tests.Service.intersectionPoints.nonePoints();

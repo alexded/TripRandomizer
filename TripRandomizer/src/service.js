@@ -13,6 +13,13 @@ var Service = function() {
 		// Max rest interval
 		var r1 = betweenPointsNumber * r0;
 		
+		if( d > r0 + r1 ) {
+			return {
+		    	point1: null,
+		    	point2: null
+		    }
+		}
+		
 	    var a = (Math.pow(r0, 2) - Math.pow(r1, 2) + Math.pow(d, 2)) / (2 * d);
 	    var h = Math.sqrt(Math.pow(r0, 2) - Math.pow(a, 2));
 
